@@ -1,10 +1,14 @@
-const express = require("express")
-const app = express()
-const mongoose = require("mongoose")
-const port = 3000
-const authRoutes = require("./routes/auth")
-const todoRoutes = require("./routes/todo")
-const cors = require("cors")
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import authRoutes from './routes/auth.js';
+import todoRoutes from './routes/todo.js';
+
+const app = express();
+const port = 3000;
+
+// ... rest of your express app setup ...
+
 
 app.use(cors())
 app.use(express.json())
