@@ -2,5 +2,5 @@ import {atom} from 'recoil'
 
 export const authState = atom({
     key: 'authState',
-    defautlt: {token: null, username: null}
+    default: {token: null, username: null}
 })

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useSetRecoilState} from "recoil";
-import {authState} from "../store/authState.js";
+import {authState} from "../store/authState.ts";
 
 const Signup = () => {
     const [username, setUsername] = useState('');
