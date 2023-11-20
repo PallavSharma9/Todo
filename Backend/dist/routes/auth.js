@@ -14,16 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const express_1 = __importDefault(require("express"));
-const zod_1 = require("zod");
+const common_1 = require("@pallavsharma7/common");
 const index_js_1 = require("../middleware/index.js"); // Adjust the path as needed
 const index_js_2 = require("../db/index.js"); // Adjust the path as needed
 const router = express_1.default.Router();
-const signUpInputProps = zod_1.z.object({
-    username: zod_1.z.string().min(1).max(20).email(),
-    password: zod_1.z.string().min(1).max(8)
-});
 router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const signUpInput = signUpInputProps.safeParse(req.body);
+    const signUpInput = common_1.signUpInputProps.safeParse(req.body);
     if (!signUpInput.success) {
         return res.status(411).json({
             msg: signUpInput.error
@@ -31,24 +27,6 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
     let username = signUpInput.data.username;
     let password = signUpInput.data.password;
-    // if(typeof username !== 'string'){
-    //   res.status(411).json({
-    //     message: "You send wrong input, username should be string"
-    //   })
-    //   return
-    // }
-    // if(username.length > 100){
-    //   res.status(411).json({
-    //     message: 'Your email should not be more than 100 Letter'
-    //   })
-    //   return
-    // }
-    // if(typeof password !== 'string'){
-    //   res.status(411).json({
-    //     message: 'You send wrong input, password should be string'
-    //   })
-    //   return
-    // }
     const user = yield index_js_2.User.findOne({ username });
     if (user) {
         res.status(403).json({ message: 'User already exists' });
@@ -61,7 +39,7 @@ router.post('/signup', (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 }));
 router.post('/login', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const logInInput = signUpInputProps.safeParse(req.body);
+    const logInInput = common_1.signUpInputProps.safeParse(req.body);
     if (!logInInput.success) {
         return res.status(411).json({
             msg: logInInput.error
